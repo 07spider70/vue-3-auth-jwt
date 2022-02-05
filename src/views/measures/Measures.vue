@@ -58,6 +58,7 @@ export default {
       this.timer = null
     },
     startAutoUpdate() {
+      this.cancelAutoUpdate()
       this.refresh()
       this.timer = setInterval(this.refresh, 5000)
       // console.log(this.timer)
@@ -76,6 +77,9 @@ export default {
   //   this.refresh()
   // },
   beforeDestroy() {
+    this.cancelAutoUpdate();
+  },
+  unmounted() {
     this.cancelAutoUpdate();
   }
 }

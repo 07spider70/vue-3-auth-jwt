@@ -1,6 +1,6 @@
 <template>
   <h2>Devices</h2>
-  <div v-if="timer">
+  <div v-if="timerDev">
     <button v-on:click="cancelAutoUpdate">Stop refresh</button>
   </div>
   <div v-else>
@@ -28,12 +28,12 @@ export default {
 
     return {
       devices: [],
-      timer: null,
+      timerDev: null,
     }
   },
   created() {
     this.refresh();
-    this.timer = setInterval(this.refresh, 10000)
+    this.timerDev = setInterval(this.refresh, 100000)
     // console.log(this.timer)
   },
   methods: {
@@ -46,12 +46,13 @@ export default {
       // console.log(this.measures)
     },
     cancelAutoUpdate() {
-      clearInterval(this.timer)
-      this.timer = null
+      clearInterval(this.timerDev)
+      this.timerDev = null
     },
     startAutoUpdate() {
+      this.cancelAutoUpdate()
       this.refresh()
-      this.timer = setInterval(this.refresh, 5000)
+      this.timerDev = setInterval(this.refresh, 100000)
       // console.log(this.timer)
     }
     ,

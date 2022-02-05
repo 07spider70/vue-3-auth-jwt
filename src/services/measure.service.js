@@ -26,15 +26,15 @@ class UserService {
             return 'green'
         } else if (value >= 50 && value <= 100) {
             return 'darkgreen'
-        } else if (value >= 101 && value <= 150) {
+        } else if (value > 100 && value <= 150) {
             return '#CCCC00'
-        } else if (value >= 151 && value <= 200) {
+        } else if (value > 150 && value <= 200) {
             return 'orange'
-        } else if (value >= 201 && value <= 250) {
+        } else if (value > 200 && value <= 250) {
             return 'red'
-        } else if (value >= 251 && value <= 350) {
+        } else if (value > 250 && value <= 350) {
             return 'purple'
-        } else if (value >= 351) {
+        } else if (value > 350) {
             return 'brown'
         }
     }
