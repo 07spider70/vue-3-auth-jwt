@@ -1,10 +1,7 @@
 {
-  "name": "vue-3-auth-jwt",
+  "name": "Measure-Stations",
   "version": "0.1.0",
   "private": true,
-  "presets": [
-    "@babel/preset-env"
-  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -20,6 +17,7 @@
     "bootstrap": "^4.6.1",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "popper.js": "^1.16.1",
     "vee-validate": "^4.5.8",
     "vue": "^3.0.0",
@@ -29,18 +27,18 @@
   },
   "devDependencies": {
     "@vue/babel-preset-app": "^4.5.15",
-    "@vue/cli-plugin-babel": "^3.3.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "^3.1.1",
-    "@vue/cli-service": "^3.12.1",
+    "@vue/cli-service": "~4.5.15",
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.8.0",
     "eslint-plugin-vue": "^7.0.0"
   },
   "eslintConfig": {
-    "root": true,
+    "root": false,
     "env": {
-      "node": true
+      "node": false
     },
     "extends": [
       "eslint:recommended"
@@ -54,5 +52,8 @@
     "> 1%",
     "last 2 versions",
     "not dead"
+  ],
+  "presets": [
+    "@babel/preset-env"
   ]
 }

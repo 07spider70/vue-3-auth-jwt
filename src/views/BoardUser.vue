@@ -5,17 +5,19 @@
     </header>
   </div>
 </template>
+
 <script>
 import UserService from "../services/user.service";
+import EventBus from "../common/EventBus";
 export default {
-  name: "Home",
+  name: "User",
   data() {
     return {
       content: "",
     };
   },
   mounted() {
-    UserService.getAllMeasures().then(
+    UserService.getUserBoard().then(
         (response) => {
           this.content = response.data;
         },
@@ -26,6 +28,9 @@ export default {
                   error.response.data.message) ||
               error.message ||
               error.toString();
+          if (error.response && error.response.status === 403) {
+            EventBus.dispatch("logout");
+          }
         }
     );
   },

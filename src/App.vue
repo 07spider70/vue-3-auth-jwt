@@ -1,21 +1,21 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a href="/" class="navbar-brand">bezKoder</a>
+      <a href="/" class="navbar-brand">Measure station</a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
             <font-awesome-icon icon="home" /> Home
           </router-link>
         </li>
-        <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link">Admin Board</router-link>
-        </li>
-        <li v-if="showModeratorBoard" class="nav-item">
-          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+<!--        <li class="nav-item">-->
+<!--          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>-->
+<!--        </li>-->
+        <li class="nav-item">
+          <router-link v-if="currentUser" to="/measures" class="nav-link">Measures</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+          <router-link v-if="currentUser" to="/devices" class="nav-link">Devices</router-link>
         </li>
       </div>
       <div v-if="!currentUser" class="navbar-nav ml-auto">
@@ -50,7 +50,9 @@
   </div>
 </template>
 <script>
+import EventBus from "./common/EventBus";
 export default {
+
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
@@ -74,6 +76,14 @@ export default {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
     }
+  },
+  mounted() {
+    EventBus.on("logout", () => {
+      this.logOut();
+    });
+  },
+  beforeDestroy() {
+    EventBus.remove("logout");
   }
 };
 </script>

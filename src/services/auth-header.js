@@ -6,3 +6,12 @@ export default function authHeader() {
         return {};
     }
 }
+
+export function authX() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.accessToken) {
+        return user.accessToken ;
+    } else {
+        return {};
+    }
+}

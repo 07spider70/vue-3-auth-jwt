@@ -9,11 +9,6 @@
       <Form @submit="handleRegister" :validation-schema="schema">
         <div v-if="!successful">
           <div class="form-group">
-            <label for="username">Username</label>
-            <Field name="username" type="text" class="form-control" />
-            <ErrorMessage name="username" class="error-feedback" />
-          </div>
-          <div class="form-group">
             <label for="email">Email</label>
             <Field name="email" type="email" class="form-control" />
             <ErrorMessage name="email" class="error-feedback" />
@@ -22,6 +17,21 @@
             <label for="password">Password</label>
             <Field name="password" type="password" class="form-control" />
             <ErrorMessage name="password" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <Field name="name" type="text" class="form-control" />
+            <ErrorMessage name="name" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="surname">Surname</label>
+            <Field name="surname" type="text" class="form-control" />
+            <ErrorMessage name="surname" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone number</label>
+            <Field name="phoneNumber" type="tel" class="form-control" />
+            <ErrorMessage name="phoneNumber" class="error-feedback" />
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block" :disabled="loading">
@@ -55,12 +65,8 @@ export default {
     ErrorMessage,
   },
   data() {
+    const phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
     const schema = yup.object().shape({
-      username: yup
-          .string()
-          .required("Username is required!")
-          .min(3, "Must be at least 3 characters!")
-          .max(20, "Must be maximum 20 characters!"),
       email: yup
           .string()
           .required("Email is required!")
@@ -71,6 +77,19 @@ export default {
           .required("Password is required!")
           .min(6, "Must be at least 6 characters!")
           .max(40, "Must be maximum 40 characters!"),
+      name: yup
+          .string()
+          .required("Name is required!")
+          .min(3, "Must be at least 3 characters!")
+          .max(20, "Must be maximum 20 characters!"),
+      surname: yup
+          .string()
+          .required("Surname is required!")
+          .min(3, "Must be at least 3 characters!")
+          .max(20, "Must be maximum 20 characters!"),
+      phoneNumber: yup
+          .string()
+          .matches(phoneRegExp, 'Phone number is not valid.')
     });
     return {
       successful: false,
@@ -96,15 +115,17 @@ export default {
       this.loading = true;
       this.$store.dispatch("auth/register", user).then(
           (data) => {
+            console.log(data)
             this.message = data.message;
             this.successful = true;
             this.loading = false;
+            // this.$router.push("/profile");
           },
           (error) => {
             this.message =
                 (error.response &&
                     error.response.data &&
-                    error.response.data.message) ||
+                    error.response.data.error) ||
                 error.message ||
                 error.toString();
             this.successful = false;
@@ -116,5 +137,36 @@ export default {
 };
 </script>
 <style scoped>
-
+label {
+  display: block;
+  margin-top: 10px;
+}
+.card-container.card {
+  max-width: 350px !important;
+  padding: 40px 40px;
+}
+.card {
+  background-color: #f7f7f7;
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  margin-top: 50px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.error-feedback {
+  color: red;
+}
 </style>

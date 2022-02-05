@@ -1,12 +1,16 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Home from "./components/Home.vue";
-import Login from "./components/Login.vue";
-import Register from "./components/Register.vue";
+import Home from "./views/Home.vue";
+import Login from "./views/Login.vue";
+import Register from "./views/Register.vue";
+import Measures from "@/views/measures/Measures";
+import MeasureDetail from "@/views/measures/MeasureDetail";
+import Devices from "@/views/devices/Devices";
+import DeviceDetail from "@/views/devices/DeviceDetail";
 // lazy-loaded
-const Profile = () => import("./components/Profile.vue")
+const Profile = () => import("./views/Profile.vue")
 // const BoardAdmin = () => import("./components/BoardAdmin.vue")
 // const BoardModerator = () => import("./components/BoardModerator.vue")
-// const BoardUser = () => import("./components/BoardUser.vue")
+const BoardUser = () => import("./views/BoardUser.vue")
 const routes = [
     {
         path: "/",
@@ -16,6 +20,27 @@ const routes = [
     {
         path: "/home",
         component: Home,
+    },
+    {
+      path: "/measures",
+      component: Measures,
+    },
+    {
+        path: "/measures/:id",
+        name: 'MeasureDetail',
+        component: MeasureDetail,
+        props: true
+
+    },
+    {
+        path: "/devices",
+        component: Devices
+    },
+    {
+        path: "/devices/:id",
+        name: 'DeviceDetail',
+        component: DeviceDetail,
+        props: true
     },
     {
         path: "/login",
@@ -43,12 +68,12 @@ const routes = [
     //     // lazy-loaded
     //     component: BoardModerator,
     // },
-    // {
-    //     path: "/user",
-    //     name: "user",
-    //     // lazy-loaded
-    //     component: BoardUser,
-    // },
+    {
+        path: "/user",
+        name: "user",
+        // lazy-loaded
+        component: BoardUser,
+    },
 ];
 const router = createRouter({
     history: createWebHistory(),
