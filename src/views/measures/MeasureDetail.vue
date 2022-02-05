@@ -41,6 +41,14 @@
           {{measure.breath_voc_equivalent.toFixed(2)}} ppm
         </td>
       </tr>
+      <tr>
+        <td>
+          The measure pressure
+        </td>
+        <td>
+          {{(measure.raw_pressure / 100).toFixed(2)}} hPa
+        </td>
+      </tr>
 
       <tr>
         <td>
